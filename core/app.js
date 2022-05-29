@@ -19,7 +19,7 @@ async function boot() {
   container.innerHTML = "";
   delete screenContainer.screen;
 
-  const screen = await import(`./screens/${currentScreen}Screen`);
+  const screen = await import(`./screens/${currentScreen}Screen.js`);
   screenContainer.screen = screen;
   screenContainer.screen.default(globalEmitter, parameters);
 }

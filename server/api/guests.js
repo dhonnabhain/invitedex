@@ -24,20 +24,18 @@ export default defineEventHandler(async () => {
   let guests = results
     .sort((guest) => guest.properties.order.number)
     .map((guest) => {
-      guest.id = guest.properties.order.number;
-      guest.name = guest.properties.Name.title[0].plain_text
-        .split(" ")
-        .map(ucFirst)
-        .join(" ");
-      guest.relation = ucFirst(
-        guest.properties.relation.rich_text[0].plain_text
-      );
-      guest.sprite = guest.properties.sprite.rich_text[0].plain_text;
-      guest.coordinates =
-        guest.properties.coordinates.rich_text[0].plain_text.split(",");
-      guest.description = guest.properties.description.rich_text[0].plain_text;
-
-      return guest;
+      return {
+        id: guest.properties.order.number,
+        name: guest.properties.Name.title[0].plain_text
+          .split(" ")
+          .map(ucFirst)
+          .join(" "),
+        relation: ucFirst(guest.properties.relation.rich_text[0].plain_text),
+        sprite: guest.properties.sprite.rich_text[0].plain_text,
+        coordinates:
+          guest.properties.coordinates.rich_text[0].plain_text.split(","),
+        description: guest.properties.description.rich_text[0].plain_text,
+      };
     });
 
   return sortBy(guests, (guest) => guest.id);

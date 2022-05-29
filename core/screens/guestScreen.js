@@ -24,7 +24,7 @@ function createChars() {
   const sprite = document.createElement("canvas");
   sprite.setAttribute("width", "56px");
   sprite.setAttribute("height", "56px");
-  console.log(sprite, guest.sprite, guest.coordinates);
+
   setSprite(sprite, guest.sprite, guest.coordinates[0], guest.coordinates[1]);
 
   const id = document.createElement("div");
