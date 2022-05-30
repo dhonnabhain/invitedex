@@ -140,7 +140,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import netlifyIdentity from "netlify-identity-widget";
 import "~/assets/app.css";
 import init from "~/core/app.js";
@@ -161,15 +160,15 @@ onMounted(() => {
     init();
   });
 
-  // netlifyIdentity.refresh().then((jwt) => {
-  //   if (jwt) {
-  //     netlifyIdentity.close();
-  //     logged.value = true;
+  netlifyIdentity.refresh().then((jwt) => {
+    if (jwt) {
+      netlifyIdentity.close();
+      logged.value = true;
 
-  //     init();
-  //   } else {
-  //     netlifyIdentity.open("login");
-  //   }
-  // });
+      init();
+    } else {
+      netlifyIdentity.open("login");
+    }
+  });
 });
 </script>
