@@ -150,16 +150,17 @@ useHead({
 });
 
 const logged = ref(false);
-netlifyIdentity.init();
-
-netlifyIdentity.on("login", (user) => {
-  console.log(user);
-  netlifyIdentity.close();
-  logged.value = true;
-  init();
-});
 
 onMounted(() => {
+  netlifyIdentity.init();
+
+  netlifyIdentity.on("login", (user) => {
+    console.log(user);
+    netlifyIdentity.close();
+    logged.value = true;
+    init();
+  });
+  
   netlifyIdentity.refresh().then((jwt) => {
     if (jwt) {
       netlifyIdentity.close();
