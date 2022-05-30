@@ -143,32 +143,35 @@
 import netlifyIdentity from "netlify-identity-widget";
 import "~/assets/app.css";
 import init from "~/core/app.js";
+import axios from "axios";
 
 useHead({
   title: "Invitédex - Laura et Donovan",
 });
 
 const logged = ref(false);
+netlifyIdentity.init();
 
-onMounted(() => {
-  netlifyIdentity.init();
+netlifyIdentity.on("init", (user) => console.log("init", user));
 
-  netlifyIdentity.on("login", (user) => {
-    console.log(user);
+netlifyIdentity.on("login", (user) => {
+  console.log(user);
+  netlifyIdentity.close();
+  logged.value = true;
+});
+
+netlifyIdentity.refresh().then((jwt) => {
+  if (jwt) {
     netlifyIdentity.close();
     logged.value = true;
+
     init();
-  });
+  } else {
+    netlifyIdentity.open("login");
+  }
+});
 
-  netlifyIdentity.refresh().then((jwt) => {
-    if (jwt) {
-      netlifyIdentity.close();
-      logged.value = true;
-
-      init();
-    } else {
-      netlifyIdentity.open("login");
-    }
-  });
+onMounted(() => {
+  if (logged.value) init();
 });
 </script>
