@@ -160,16 +160,16 @@ onMounted(() => {
     logged.value = true;
     init();
   });
-  
-  netlifyIdentity.refresh().then((jwt) => {
-    if (jwt) {
-      netlifyIdentity.close();
-      logged.value = true;
 
-      init();
-    } else {
-      netlifyIdentity.open("login");
-    }
-  });
+  // netlifyIdentity.refresh().then((jwt) => {
+  //   if (jwt) {
+  //     netlifyIdentity.close();
+  //     logged.value = true;
+
+  //     init();
+  //   } else {
+  //     netlifyIdentity.open("login");
+  //   }
+  // });
 });
 </script>
