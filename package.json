@@ -15,6 +15,7 @@
     "lodash.padstart": "^4.6.1",
     "lodash.sortby": "^4.7.0",
     "mitt": "^3.0.0",
+    "netlify-identity-widget": "^1.9.2",
     "normalize.css": "^8.0.1"
   }
 }

@@ -141,6 +141,7 @@
 
 <script setup>
 import { onMounted } from "vue";
+import netlifyIdentity from "netlify-identity-widget";
 import "~/assets/app.css";
 import init from "~/core/app.js";
 
@@ -148,5 +149,26 @@ useHead({
   title: "Invitédex - Laura et Donovan",
 });
 
-onMounted(() => init());
+const logged = ref(false);
+netlifyIdentity.init();
+
+netlifyIdentity.on("login", (user) => {
+  console.log(user);
+  netlifyIdentity.close();
+  logged.value = true;
+  init();
+});
+
+onMounted(() => {
+  netlifyIdentity.refresh().then((jwt) => {
+    if (jwt) {
+      netlifyIdentity.close();
+      logged.value = true;
+
+      init();
+    } else {
+      netlifyIdentity.open("login");
+    }
+  });
+});
 </script>
